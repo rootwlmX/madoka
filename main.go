@@ -8,7 +8,7 @@ import (
 func main() {
 	r := gin.Default()
 	router.InitRouter(r)
-
+	r.Static("/data", "./data")
 	err := r.Run()
 	if err != nil {
 		return

@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"madoka/common"
+	"madoka/service"
 )
 
 type TarotHandler struct {
@@ -14,5 +15,10 @@ func (h *TarotHandler) RegisterRouter(engine *gin.Engine) {
 }
 
 func (h *TarotHandler) Gacha(c *gin.Context) {
+	tarotService := service.TarotService{}
+	err := tarotService.GetRandomTarot()
+	if err != nil {
+		return
+	}
 	common.Success(c, nil, "测试")
 }
