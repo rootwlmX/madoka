@@ -9,7 +9,7 @@ func main() {
 	r := gin.Default()
 	router.InitRouter(r)
 	r.Static("/data", "./data")
-	err := r.Run()
+	err := r.Run(":8800")
 	if err != nil {
 		return
 	}
