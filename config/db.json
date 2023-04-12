@@ -1,0 +1,10 @@
+{
+  "app_name": "madoka",
+  "app_mode": "debug",
+  "driver_name": "mysql",
+  "username": "root",
+  "password": "WC3uGSEKNy",
+  "host": "1.14.74.161",
+  "port": "3306",
+  "database": "madoka"
+}
