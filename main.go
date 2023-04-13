@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"madoka/engine"
 	"madoka/router"
@@ -10,7 +11,7 @@ import (
 
 func main() {
 
-	config, err := util.ParseConfig("./config/test.json")
+	config, err := util.ParseConfig("./config/db.json")
 	if err != nil {
 		log.Fatal(err.Error())
 		return

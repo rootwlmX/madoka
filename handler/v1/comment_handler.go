@@ -1,6 +1,9 @@
 package v1
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"github.com/gin-gonic/gin"
+)
 
 type CommentHandler struct {
 }
@@ -11,5 +14,5 @@ func (h *CommentHandler) RegisterRouter(engine *gin.Engine) {
 }
 
 func (h *CommentHandler) GetTopComment(c *gin.Context) {
-
+	fmt.Println(c.Query(""))
 }

@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,5 +14,5 @@ func (h *ArticleCateHandler) RegisterRouter(engine *gin.Engine) {
 }
 
 func (h *ArticleCateHandler) GetAllList(c *gin.Context) {
-
+	fmt.Println(c.Query(""))
 }

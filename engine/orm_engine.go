@@ -21,7 +21,6 @@ func NewOrmEngine(appInfo *models.AppInfo) (*xorm.Engine, error) {
 	engine, err := xorm.NewEngine(appInfo.DriverName, url)
 
 	engine.ShowSQL(true)
-
 	fmt.Println(appInfo)
 
 	if err != nil {
@@ -30,7 +29,7 @@ func NewOrmEngine(appInfo *models.AppInfo) (*xorm.Engine, error) {
 
 	// 创建表
 	// Sync2 synchronize structs to database tables
-	// err = engine.Sync2(new(model.User), new(model.Servant), new(model.Event))
+	err = engine.Sync2(new(models.Article))
 	if err != nil {
 		return nil, err
 	}
