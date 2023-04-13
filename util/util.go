@@ -1,3 +1,4 @@
+// Package util 工具
 package util
 
 import (
@@ -9,9 +10,7 @@ import (
 
 var _cfg *models.AppInfo = nil
 
-func GetConfig() *models.AppInfo {
-	return _cfg
-}
+// ParseConfig parse config
 func ParseConfig(path string) (*models.AppInfo, error) {
 
 	file, err := os.Open(path)

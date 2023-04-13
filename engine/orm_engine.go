@@ -1,3 +1,4 @@
+// Package engine DBEngine
 package engine
 
 import (
@@ -12,10 +13,12 @@ type Orm struct {
 	*xorm.Engine
 }
 
+// GetOrmEngine get dbEngine
 func GetOrmEngine() *Orm {
 	return _dbEngine
 }
 
+// NewOrmEngine get a new orm engine
 func NewOrmEngine(appInfo *models.AppInfo) (*xorm.Engine, error) {
 	url := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", appInfo.UserName, appInfo.Password, appInfo.Host, appInfo.Port, appInfo.DataBase)
 	engine, err := xorm.NewEngine(appInfo.DriverName, url)
@@ -27,8 +30,6 @@ func NewOrmEngine(appInfo *models.AppInfo) (*xorm.Engine, error) {
 		return nil, err
 	}
 
-	// 创建表
-	// Sync2 synchronize structs to database tables
 	err = engine.Sync2(new(models.Article))
 	if err != nil {
 		return nil, err
