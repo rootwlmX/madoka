@@ -1,3 +1,4 @@
+// Package dao database
 package dao
 
 import (

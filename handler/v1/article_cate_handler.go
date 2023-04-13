@@ -1,3 +1,4 @@
+// Package v1 handlers
 package v1
 
 import (

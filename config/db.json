@@ -3,8 +3,8 @@
   "app_mode": "debug",
   "driver_name": "mysql",
   "username": "root",
-  "password": "WC3uGSEKNy",
-  "host": "1.14.74.161",
+  "password": "xxxxxx",
+  "host": "localhost",
   "port": "3306",
   "database": "madoka"
 }
