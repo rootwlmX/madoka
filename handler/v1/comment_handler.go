@@ -15,7 +15,7 @@ func (h *CommentHandler) RegisterRouter(engine *gin.Engine) {
 	group.GET("/getTopComment", h.GetTopComment)
 }
 
-// GetTopComment 获取最多评论
+// GetTopComment 获取最新评论
 func (h *CommentHandler) GetTopComment(c *gin.Context) {
 	fmt.Println(c.Query(""))
 }

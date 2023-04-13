@@ -17,3 +17,9 @@ func (d *ArticleDao) SelectArticlePage(pageSize, currentPage int) (*[]models.Art
 	err := d.DBEngine.Limit(pageSize, (currentPage-1)*pageSize).Find(&articles)
 	return &articles, err
 }
+
+func (d *ArticleDao) SelectArticleByID(id int) (*models.Article, error) {
+	article := new(models.Article)
+	_, err := d.DBEngine.ID(id).Get(article)
+	return article, err
+}
