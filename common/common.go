@@ -1,3 +1,4 @@
+// Package common restful return
 package common
 
 import (
@@ -5,6 +6,7 @@ import (
 	"net/http"
 )
 
+// Success response of success
 func Success(c *gin.Context, data interface{}, message string) {
 	c.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
@@ -14,6 +16,7 @@ func Success(c *gin.Context, data interface{}, message string) {
 	c.Abort()
 }
 
+// Failed response of failed
 func Failed(c *gin.Context, message interface{}) {
 	c.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusBadRequest,
