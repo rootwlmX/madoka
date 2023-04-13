@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-var _cfg *models.AppInfo = nil
+var _cfg *models.AppInfo
 
 // ParseConfig parse config
 func ParseConfig(path string) (*models.AppInfo, error) {
