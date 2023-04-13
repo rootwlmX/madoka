@@ -21,7 +21,7 @@ func ParseConfig(path string) (*models.AppInfo, error) {
 	defer func(file *os.File) {
 		err := file.Close()
 		if err != nil {
-
+			panic(err)
 		}
 	}(file)
 

@@ -9,6 +9,7 @@ import (
 
 var _dbEngine *Orm
 
+// Orm xormEngine
 type Orm struct {
 	*xorm.Engine
 }
