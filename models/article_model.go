@@ -3,6 +3,7 @@ package models
 
 import "time"
 
+// Article 文章实体结构
 type Article struct {
 	ID         int       `json:"id" xorm:"id"`
 	Title      string    `json:"title" xorm:"title"`
