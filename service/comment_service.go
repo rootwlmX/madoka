@@ -4,6 +4,7 @@ import (
 	"madoka/models"
 )
 
+// CommentService 评论Service
 type CommentService struct {
 }
 
