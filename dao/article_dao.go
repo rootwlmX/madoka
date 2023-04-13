@@ -18,6 +18,7 @@ func (d *ArticleDao) SelectArticlePage(pageSize, currentPage int) (*[]models.Art
 	return &articles, err
 }
 
+// SelectArticleByID 以文章ID获取文章
 func (d *ArticleDao) SelectArticleByID(id int) (*models.Article, error) {
 	article := new(models.Article)
 	_, err := d.DBEngine.ID(id).Get(article)
