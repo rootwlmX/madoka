@@ -3,8 +3,8 @@ package engine
 
 import (
 	"fmt"
-	"github.com/go-xorm/xorm"
 	"madoka/models"
+	"xorm.io/xorm"
 )
 
 var _dbEngine *Orm

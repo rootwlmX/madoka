@@ -1,8 +1,9 @@
 package v1
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"madoka/common"
+	"madoka/service"
 )
 
 // CommentHandler 评论handler
@@ -17,5 +18,11 @@ func (h *CommentHandler) RegisterRouter(engine *gin.Engine) {
 
 // GetTopComment 获取最新评论
 func (h *CommentHandler) GetTopComment(c *gin.Context) {
-	fmt.Println(c.Query(""))
+	commentService := service.CommentService{}
+	res, err := commentService.GetTopCommentAndTopBrowse()
+	if err != nil {
+		common.Failed(c, "error")
+		return
+	}
+	common.Success(c, res, "success")
 }
