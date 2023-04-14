@@ -20,6 +20,8 @@ type Comment struct {
 	ArticleID  int       `json:"articleId" xorm:"article_id"`
 	UserID     int       `json:"userId" xorm:"user_id"`
 	CreateTime time.Time `json:"createTime" xorm:"create_time"`
+	ParentID   int       `json:"parentId" xorm:"parent_id"`
+	State      int       `json:"state" xorm:"state"`
 }
 
 // Browse 浏览
