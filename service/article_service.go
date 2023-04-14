@@ -15,9 +15,18 @@ type ArticleService struct {
 func (s *ArticleService) ListArticles(pageSize, currentPage int) (*models.ArticlePageResponse, error) {
 	articleDao := dao.ArticleDao{DBEngine: engine.GetOrmEngine()}
 	articlePage, err := articleDao.SelectArticlePage(pageSize, currentPage)
+	if err != nil {
+		return nil, err
+	}
+	count, err := articleDao.DBEngine.Count(new(models.Article))
 	return &models.ArticlePageResponse{
-		Pagination: models.Pagination{},
-		List:       articlePage,
+		Pagination: models.Pagination{
+			CurrentPage: currentPage,
+			PageSize:    pageSize,
+			Total:       int(count),
+			TotalPage:   int(count)/pageSize + 1,
+		},
+		List: articlePage,
 	}, err
 }
 

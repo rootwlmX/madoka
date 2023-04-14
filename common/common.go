@@ -9,9 +9,9 @@ import (
 // Success response of success
 func Success(c *gin.Context, data interface{}, message string) {
 	c.JSON(http.StatusOK, gin.H{
-		"code":    http.StatusOK,
-		"data":    data,
-		"message": message,
+		"code": http.StatusOK,
+		"data": data,
+		"msg":  message,
 	})
 	c.Abort()
 }
@@ -19,7 +19,7 @@ func Success(c *gin.Context, data interface{}, message string) {
 // Failed response of failed
 func Failed(c *gin.Context, message interface{}) {
 	c.JSON(http.StatusOK, gin.H{
-		"code":    http.StatusBadRequest,
-		"message": message,
+		"code": http.StatusBadRequest,
+		"msg":  message,
 	})
 }
