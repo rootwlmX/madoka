@@ -2,8 +2,9 @@
 package v1
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"madoka/common"
+	"madoka/service"
 )
 
 // ArticleCateHandler category
@@ -18,5 +19,11 @@ func (h *ArticleCateHandler) RegisterRouter(engine *gin.Engine) {
 
 // GetAllList 获取全部
 func (h *ArticleCateHandler) GetAllList(c *gin.Context) {
-	fmt.Println(c.Query(""))
+	articleCateService := service.ArticleCateService{}
+	classes, err := articleCateService.GetAllArticleClass()
+	if err != nil {
+		common.Failed(c, err.Error())
+		return
+	}
+	common.Success(c, classes, "ok")
 }

@@ -50,3 +50,18 @@ type User struct {
 	LastLoginTime time.Time `json:"lastLoginTime" xorm:"last_login_time"`
 	Status        int       `json:"status" xorm:"status"`
 }
+
+// Tag 文章Tag
+type Tag struct {
+	ID   int `json:"id" xorm:"id pk autoincr notnull"`
+	Name int `json:"name" xorm:"name"`
+}
+
+// Class 文章分类
+type Class struct {
+	ID         int       `json:"id" xorm:"id pk autoincr notnull"`
+	Name       string    `json:"name" xorm:"name"`
+	CreateTime time.Time `json:"createTime" xorm:"create_time"`
+	UpdateTime time.Time `json:"updateTime" xorm:"update_time"`
+	State      int       `json:"state" xorm:"state"`
+}
