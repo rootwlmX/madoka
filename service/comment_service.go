@@ -53,7 +53,7 @@ func (s *CommentService) GetCommentList(pageSize, currentPage, articleID int) (*
 
 	responses := make([]models.CommentResponse, len(*commentPage))
 	userIDSet := make(map[int]bool)
-	parentCommentIDList := make([]int, len(*commentPage))
+	parentCommentIDList := make([]int, 0)
 	for i, comment := range *commentPage {
 		responses[i].Comment = comment
 		childrenResponses := make([]models.CommentChildrenResponse, 0)
@@ -66,9 +66,9 @@ func (s *CommentService) GetCommentList(pageSize, currentPage, articleID int) (*
 	}
 
 	subComments, _ := commentDao.SelectSubComments(articleID, parentCommentIDList)
-	parentCommentMap := make(map[int]*models.CommentResponse, len(*commentPage))
+	parentCommentMap := make(map[int]models.CommentResponse, len(*commentPage))
 	for _, commentResponse := range responses {
-		parentCommentMap[commentResponse.ID] = &commentResponse
+		parentCommentMap[commentResponse.ID] = commentResponse
 	}
 
 	for _, subComment := range *subComments {
@@ -76,11 +76,11 @@ func (s *CommentService) GetCommentList(pageSize, currentPage, articleID int) (*
 	}
 
 	userDao := dao.UserDao{DBEngine: engine.GetOrmEngine()}
-	keys := make([]int, len(userIDSet))
+	keys := make([]int, 0)
 	for k := range userIDSet {
 		keys = append(keys, k)
 	}
-	userList, err := userDao.SelectUserByIDs(keys)
+	userList, _ := userDao.SelectUserByIDs(keys)
 	userIDNameMap := make(map[int]string, len(*userList))
 	for _, user := range *userList {
 		userIDNameMap[user.ID] = user.UserName
