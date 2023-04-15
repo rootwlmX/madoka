@@ -15,13 +15,15 @@ type Article struct {
 
 // Comment 评论实体结构
 type Comment struct {
-	ID         int       `json:"id" xorm:"id pk autoincr notnull"`
-	Content    string    `json:"content" xorm:"content LONGTEXT"`
-	ArticleID  int       `json:"articleId" xorm:"article_id"`
-	UserID     int       `json:"userId" xorm:"user_id"`
-	CreateTime time.Time `json:"createTime" xorm:"create_time"`
-	ParentID   int       `json:"parentId" xorm:"parent_id"`
-	State      int       `json:"state" xorm:"state"`
+	ID           int       `json:"id" xorm:"id pk autoincr notnull"`
+	Content      string    `json:"content" xorm:"content LONGTEXT"`
+	ArticleID    int       `json:"articleId" xorm:"article_id"`
+	UserID       int       `json:"userId" xorm:"user_id"`
+	CreateTime   time.Time `json:"createTime" xorm:"create_time"`
+	ParentID     int       `json:"parentId" xorm:"parent_id"`
+	State        int       `json:"state" xorm:"state"`
+	SubParentID  int       `json:"subParentId" xorm:"sub_parent_id"`
+	ParentUserID int       `json:"ParentUserId" xorm:"parent_user_id"`
 }
 
 // Browse 浏览
@@ -35,7 +37,7 @@ type Browse struct {
 // User 用户结构
 type User struct {
 	ID            int       `json:"id" xorm:"id pk autoincr notnull"`
-	UserName      string    `json:"userName" xorm:"userName"`
+	UserName      string    `json:"userName" xorm:"user_name"`
 	Avatar        string    `json:"avatar" xorm:"avatar"`
 	Email         string    `json:"email" xorm:"email"`
 	Bio           string    `json:"bio" xorm:"bio"`

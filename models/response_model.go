@@ -30,15 +30,17 @@ type CommentPageResponse struct {
 
 // CommentResponse 评论区评论结构
 type CommentResponse struct {
-	*Comment
+	Comment
+	UserName string                     `json:"username"`
 	Children *[]CommentChildrenResponse `json:"children"`
 }
 
 // CommentChildrenResponse 评论区二级评论结构
 type CommentChildrenResponse struct {
-	*Comment
+	Comment
+	UserName       string `json:"username"`
 	ParentUserID   int    `json:"parentUserId"`
-	ParentUserName string `json:"parentUserName"`
+	ParentUserName string `json:"parentUsername"`
 }
 
 // TopCommentResponse getTopComment返回结构

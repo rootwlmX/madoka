@@ -32,8 +32,8 @@ func (d *CommentDao) SelectCommentPage(pageSize, currentPage, articleID int) (*[
 }
 
 // SelectSubComments 获取文章的二级评论
-func (d *CommentDao) SelectSubComments(articleID int) (*[]models.Comment, error) {
+func (d *CommentDao) SelectSubComments(articleID int, parentIDList []int) (*[]models.Comment, error) {
 	comments := make([]models.Comment, 0)
-	err := d.DBEngine.Where("article_id = ? and parent_id is not null", articleID).Find(&comments)
+	err := d.DBEngine.Where("article_id = ?", articleID).In("parent_id", parentIDList).Find(&comments)
 	return &comments, err
 }

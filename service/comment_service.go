@@ -29,6 +29,20 @@ func (s *CommentService) GetTopCommentAndTopBrowse() (*models.TopCommentResponse
 	}, err
 }
 
+func getTopComments() (*[]models.CommentList, error) {
+	commentDao := dao.CommentDao{DBEngine: engine.GetOrmEngine()}
+	comments, err := commentDao.SelectRecentComments(10)
+	for i := range *comments {
+		(*comments)[i].IsArticle = true
+	}
+	return comments, err
+}
+
+func getTopBrowse() (*[]models.BrowseList, error) {
+	articleDao := dao.ArticleDao{DBEngine: engine.GetOrmEngine()}
+	return articleDao.SelectMostBrowseArticle(10)
+}
+
 // GetCommentList 获取文章的评论列表
 func (s *CommentService) GetCommentList(pageSize, currentPage, articleID int) (*models.CommentPageResponse, error) {
 	commentDao := dao.CommentDao{DBEngine: engine.GetOrmEngine()}
@@ -38,34 +52,54 @@ func (s *CommentService) GetCommentList(pageSize, currentPage, articleID int) (*
 	}
 
 	responses := make([]models.CommentResponse, len(*commentPage))
-	parentMap := make(map[int]*models.CommentResponse)
+	userIDSet := make(map[int]bool)
+	parentCommentIDList := make([]int, len(*commentPage))
 	for i, comment := range *commentPage {
-		responses[i].Comment = &comment
-		parentMap[responses[i].ID] = &responses[i]
+		responses[i].Comment = comment
+		childrenResponses := make([]models.CommentChildrenResponse, 0)
+		responses[i].Children = &childrenResponses
+		parentCommentIDList = append(parentCommentIDList, comment.ID)
+		userIDSet[comment.UserID] = true
 	}
-
-	// 查出该文章下所有父ID不为空的评论，即子评论
-	subComments, err := commentDao.SelectSubComments(articleID)
-	subMap := make(map[int]int)
-	for _, subComment := range *subComments {
-		subMap[subComment.ID] = subComment.ParentID
-		superID := subMap[subComment.ParentID]
-		if superID != 0 {
-			subMap[subComment.ID] = superID
-		}
-	}
-
-	for _, subComment := range *subComments {
-		children := *parentMap[subMap[subComment.ID]].Children
-		children = append(children, models.CommentChildrenResponse{
-			Comment:        &subComment,
-			ParentUserID:   subComment.ParentID,
-			ParentUserName: "",
-		})
-	}
-
 	if err != nil {
 		return nil, err
+	}
+
+	subComments, _ := commentDao.SelectSubComments(articleID, parentCommentIDList)
+	parentCommentMap := make(map[int]*models.CommentResponse, len(*commentPage))
+	for _, commentResponse := range responses {
+		parentCommentMap[commentResponse.ID] = &commentResponse
+	}
+
+	for _, subComment := range *subComments {
+		userIDSet[subComment.UserID] = true
+	}
+
+	userDao := dao.UserDao{DBEngine: engine.GetOrmEngine()}
+	keys := make([]int, len(userIDSet))
+	for k := range userIDSet {
+		keys = append(keys, k)
+	}
+	userList, err := userDao.SelectUserByIDs(keys)
+	userIDNameMap := make(map[int]string, len(*userList))
+	for _, user := range *userList {
+		userIDNameMap[user.ID] = user.UserName
+	}
+
+	for _, subComment := range *subComments {
+		id := subComment.ParentID
+		response := parentCommentMap[id]
+		childrenResponse := models.CommentChildrenResponse{
+			Comment:        subComment,
+			ParentUserID:   subComment.ParentUserID,
+			ParentUserName: userIDNameMap[subComment.ParentUserID],
+			UserName:       userIDNameMap[subComment.UserID],
+		}
+		*response.Children = append(*response.Children, childrenResponse)
+	}
+
+	for i, response := range responses {
+		responses[i].UserName = userIDNameMap[response.UserID]
 	}
 
 	count, err := commentDao.SelectCommentCountOfArticle(articleID)
@@ -81,18 +115,4 @@ func (s *CommentService) GetCommentList(pageSize, currentPage, articleID int) (*
 		},
 		List: &responses,
 	}, err
-}
-
-func getTopComments() (*[]models.CommentList, error) {
-	commentDao := dao.CommentDao{DBEngine: engine.GetOrmEngine()}
-	comments, err := commentDao.SelectRecentComments(10)
-	for i := range *comments {
-		(*comments)[i].IsArticle = true
-	}
-	return comments, err
-}
-
-func getTopBrowse() (*[]models.BrowseList, error) {
-	articleDao := dao.ArticleDao{DBEngine: engine.GetOrmEngine()}
-	return articleDao.SelectMostBrowseArticle(10)
 }
