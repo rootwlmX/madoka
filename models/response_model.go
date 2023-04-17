@@ -66,5 +66,5 @@ type CommentList struct {
 	IsArticle  bool      `json:"isArticle"`
 	Title      string    `json:"title"`
 	UserID     int       `json:"userId" xorm:"user_id"`
-	UserName   string    `json:"userName"`
+	UserName   string    `json:"username"`
 }
