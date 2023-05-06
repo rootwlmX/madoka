@@ -24,5 +24,6 @@ func (d *LoveDao) SelectLoveByDateAndIP(ip string, time time.Time) (int64, error
 
 // SelectLoveCount love数量
 func (d *LoveDao) SelectLoveCount() (int64, error) {
-	return d.DBEngine.Count()
+	love := new(models.Love)
+	return d.DBEngine.Count(love)
 }
