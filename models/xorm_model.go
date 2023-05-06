@@ -69,3 +69,10 @@ type Class struct {
 	UpdateTime time.Time `json:"updateTime" xorm:"update_time"`
 	State      int       `json:"state" xorm:"state"`
 }
+
+// Love 点赞
+type Love struct {
+	ID         int       `json:"id" xorm:"id pk autoincr notnull"`
+	IP         string    `json:"ip" xorm:"ip"`
+	CreateTime time.Time `json:"createTime" xorm:"create_time"`
+}
