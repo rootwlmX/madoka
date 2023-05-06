@@ -22,10 +22,15 @@ func (s *CommentService) GetTopCommentAndTopBrowse() (*models.TopCommentResponse
 		return nil, err
 	}
 
+	loveCount, err := getLoveCount()
+	if err != nil {
+		return nil, err
+	}
+
 	return &models.TopCommentResponse{
 		BrowseList:  browseList,
 		CommentList: comments,
-		LoveCount:   0,
+		LoveCount:   int(loveCount),
 	}, err
 }
 
@@ -41,6 +46,11 @@ func getTopComments() (*[]models.CommentList, error) {
 func getTopBrowse() (*[]models.BrowseList, error) {
 	articleDao := dao.ArticleDao{DBEngine: engine.GetOrmEngine()}
 	return articleDao.SelectMostBrowseArticle(10)
+}
+
+func getLoveCount() (int64, error) {
+	loveDao := dao.LoveDao{DBEngine: engine.GetOrmEngine()}
+	return loveDao.SelectLoveCount()
 }
 
 // GetCommentList 获取文章的评论列表

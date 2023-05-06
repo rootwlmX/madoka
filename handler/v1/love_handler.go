@@ -24,5 +24,7 @@ func (h *LoveHandler) AddLove(c *gin.Context) {
 		common.Failed(c, "error")
 		return
 	}
-	common.Success(c, struct{ status int }{res}, "ok")
+	common.Success(c, struct {
+		Status int `json:"status"`
+	}{res}, "ok")
 }
