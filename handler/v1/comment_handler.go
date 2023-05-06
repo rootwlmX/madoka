@@ -37,7 +37,7 @@ func (h *CommentHandler) GetTopComment(c *gin.Context) {
 	commentService := service.CommentService{}
 	res, err := commentService.GetTopCommentAndTopBrowse()
 	if err != nil {
-		common.Failed(c, "error")
+		common.Failed(c, err.Error())
 		return
 	}
 	common.Success(c, res, "success")
