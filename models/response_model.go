@@ -54,7 +54,7 @@ type TopCommentResponse struct {
 type BrowseList struct {
 	Title     string `json:"title"`
 	Count     int    `json:"count"`
-	ArticleID int    `json:"articleId" xorm:"article_id"`
+	ArticleID int    `json:"articleId" xorm:"id"`
 }
 
 // CommentList 评论列表
