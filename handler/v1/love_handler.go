@@ -13,7 +13,7 @@ type LoveHandler struct {
 // RegisterRouter 路由注册
 func (h *LoveHandler) RegisterRouter(engine *gin.Engine) {
 	group := engine.Group("/v1/love")
-	group.GET("/add", h.AddLove)
+	group.POST("/add", h.AddLove)
 }
 
 // AddLove 点赞增加
