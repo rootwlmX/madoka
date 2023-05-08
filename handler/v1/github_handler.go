@@ -30,12 +30,12 @@ func (h *GithubHandler) GetGithubToken(c *gin.Context) {
 	client := &http.Client{}
 	loginURL := fmt.Sprintf("%s?client_id=%s&client_secret=%s&code=%s&redirect_uri=%s", githubOauthBaseURL, clientID, clientSecret, code, redirectURL)
 	request, err := http.NewRequest("POST", loginURL, nil)
+	request.Header.Add("Accept", "application/json")
+	response, _ := client.Do(request)
 	if err != nil {
 		common.Failed(c, err.Error())
 		return
 	}
-	request.Header.Add("Accept", "application/json")
-	response, _ := client.Do(request)
 	defer response.Body.Close()
 	bs, _ := io.ReadAll(response.Body)
 	body := string(bs)
