@@ -29,8 +29,8 @@ func (h *GithubHandler) RegisterRouter(engine *gin.Engine) {
 // GetGithubToken Github重定向handler
 func (h *GithubHandler) GetGithubToken(c *gin.Context) {
 	code := c.Query("code")
-	loginUrl := fmt.Sprintf("%s?client_id=%s&client_secret=%s&code=%s&state=%s", githubOauthBaseURL, clientID, clientSecret, code, state)
-	response, err := http.PostForm(loginUrl, url.Values{
+	loginURL := fmt.Sprintf("%s?client_id=%s&client_secret=%s&code=%s&state=%s", githubOauthBaseURL, clientID, clientSecret, code, state)
+	response, err := http.PostForm(loginURL, url.Values{
 		"client_id":     {clientID},
 		"client_secret": {clientSecret},
 		"redirect_uri":  {redirectURL},
