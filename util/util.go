@@ -34,8 +34,8 @@ func ParseConfig(path string) (*models.AppInfo, error) {
 	return _cfg, nil
 }
 
-// JsonToMap json转map
-func JsonToMap(str string) map[string]string {
+// JSONToMap json转map
+func JSONToMap(str string) map[string]string {
 	var tempMap map[string]string
 
 	err := json.Unmarshal([]byte(str), &tempMap)
