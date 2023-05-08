@@ -1,5 +1,4 @@
-// Package oauth 第三方登录
-package oauth
+package v1
 
 import (
 	"fmt"
@@ -20,7 +19,7 @@ const githubOauthBaseURL string = "https://github.com/login/oauth/access_token"
 
 // RegisterRouter 路由注册
 func (h *GithubHandler) RegisterRouter(engine *gin.Engine) {
-	group := engine.Group("/oauth/github")
+	group := engine.Group("/v1/oauth/github")
 	group.GET("/redirect", h.GetGithubToken)
 }
 
