@@ -36,6 +36,7 @@ func (h *GithubHandler) GetGithubToken(c *gin.Context) {
 	defer response.Body.Close()
 	bs, _ := io.ReadAll(response.Body)
 	body := string(bs)
+	fmt.Println(body)
 	resultMap := util.JSONToMap(body)
 	accessToken := resultMap["access_token"].(string)
 	getGithubUserMessage(accessToken, c)
