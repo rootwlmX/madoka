@@ -28,7 +28,7 @@ func (d *ArticleDao) SelectArticleByID(id int) (*models.Article, error) {
 // SelectMostBrowseArticle 查询最多浏览文章
 func (d *ArticleDao) SelectMostBrowseArticle(limit int) (*[]models.BrowseList, error) {
 	articleBrowses := make([]models.BrowseList, 0)
-	err := d.DBEngine.SQL("select article.id, article.title, count(browse.id) count from article, browse group by article.id").
-		Desc("create_time").Desc("article_id").Limit(limit).Find(&articleBrowses)
+	err := d.DBEngine.SQL("select id, title, browse_count count from article").
+		Desc("article.id").Desc("browse_count").Limit(limit).Find(&articleBrowses)
 	return &articleBrowses, err
 }
