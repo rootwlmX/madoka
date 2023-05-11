@@ -13,6 +13,8 @@ type Article struct {
 	UpdateTime   time.Time `json:"updateTime" xorm:"update_time"`
 	LikeCount    int64     `json:"likeCount" xorm:"like_count"`
 	CollectCount int64     `json:"collectCount" xorm:"collect_count"`
+	BrowseCount  int64     `json:"browseCount" xorm:"browse_count"`
+	CommentCount int64     `json:"commentCount" xorm:"comment_count"`
 }
 
 // Comment 评论实体结构
