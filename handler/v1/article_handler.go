@@ -3,6 +3,7 @@ package v1
 import (
 	"github.com/gin-gonic/gin"
 	"madoka/common"
+	"madoka/midware"
 	"madoka/service"
 	"strconv"
 )
@@ -15,7 +16,7 @@ type ArticleHandler struct {
 func (h *ArticleHandler) RegisterRouter(engine *gin.Engine) {
 	group := engine.Group("/v1/article")
 	group.GET("/getList", h.GetList)
-	group.GET("/getInfo", h.GetInfo)
+	group.GET("/getInfo", midware.BrowseMiddleWare(), h.GetInfo)
 }
 
 // GetList 获取分页列表

@@ -4,7 +4,6 @@ package v1
 import (
 	"github.com/gin-gonic/gin"
 	"madoka/common"
-	"madoka/midware"
 	"madoka/service"
 )
 
@@ -15,7 +14,7 @@ type ArticleCateHandler struct {
 // RegisterRouter 路由注册
 func (h *ArticleCateHandler) RegisterRouter(engine *gin.Engine) {
 	group := engine.Group("/v1/articleCate")
-	group.GET("/getAllList", h.GetAllList, midware.BrowseMiddleWare())
+	group.GET("/getAllList", h.GetAllList)
 }
 
 // GetAllList 获取全部
